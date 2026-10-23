@@ -8,11 +8,11 @@
   <meta name="theme-color" content="#f6f5f0">
   <meta name="description" content="Math Saathi — maths questions ko samajhne aur solve karne ka saathi.">
   <title>Math Saathi — Maths, made clear</title>
-  <link rel="stylesheet" href="styles.css?v=drawer-scroll-3">
+  <link rel="stylesheet" href="styles.css?v=feedback-stars-1">
   <script src="api-config.js" defer></script>
   <script src="formula-data.js" defer></script>
   <script src="formula-extra-data.js" defer></script>
-  <script src="features.js?v=7045fbd" defer></script>
+  <script src="features.js?v=feedback-stars-1" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
@@ -142,7 +142,13 @@
         <div class="feature-heading"><p class="step-label" data-feature-copy="feedbackEyebrow">MATH SAATHI को बेहतर बनाएँ</p><h2 id="feedback-heading" data-feature-copy="feedbackTitle">Feedback भेजें</h2><p data-feature-copy="feedbackIntro">अपना सुझाव या मिली हुई गलती लिखें। GitHub पर draft खुलेगा; भेजने से पहले आप उसे देख और submit कर सकते हैं।</p></div>
         <form id="feedback-form" class="feedback-form">
           <label><span data-feature-copy="feedbackType">Feedback का प्रकार</span><select id="feedback-category" name="category"><option value="suggestion" data-copy="feedbackSuggestion">सुझाव</option><option value="bug" data-copy="feedbackBug">गलती / समस्या</option><option value="other" data-copy="feedbackOther">कुछ और</option></select></label>
-          <label><span data-feature-copy="feedbackMessage">आपका संदेश</span><textarea name="message" rows="4" required maxlength="2000" data-feature-placeholder="feedbackPlaceholder" placeholder="क्या बेहतर किया जा सकता है?"></textarea></label>
+          <fieldset class="rating-field"><legend data-feature-copy="feedbackRating">Rating (optional)</legend><div class="star-rating" role="radiogroup" aria-label="Math Saathi को रेट करें" dir="ltr">
+            <input type="radio" id="rating-5" name="rating" value="5" aria-label="5 सितारे"><label for="rating-5" title="5 सितारे">★</label>
+            <input type="radio" id="rating-4" name="rating" value="4" aria-label="4 सितारे"><label for="rating-4" title="4 सितारे">★</label>
+            <input type="radio" id="rating-3" name="rating" value="3" aria-label="3 सितारे"><label for="rating-3" title="3 सितारे">★</label>
+            <input type="radio" id="rating-2" name="rating" value="2" aria-label="2 सितारे"><label for="rating-2" title="2 सितारे">★</label>
+            <input type="radio" id="rating-1" name="rating" value="1" aria-label="1 सितारा"><label for="rating-1" title="1 सितारा">★</label>
+          </div></fieldset>          <label><span data-feature-copy="feedbackMessage">आपका संदेश</span><textarea name="message" rows="4" required maxlength="2000" data-feature-placeholder="feedbackPlaceholder" placeholder="क्या बेहतर किया जा सकता है?"></textarea></label>
           <button type="submit" class="feedback-submit" data-feature-copy="feedbackSend">Feedback draft खोलें</button><p id="feedback-status" class="feedback-status" role="status"></p><p class="feedback-note" data-feature-copy="feedbackNote">यह form अपने-आप कुछ publish नहीं करता। GitHub account से आप खुद final submit करेंगे।</p>
         </form>
       </section>

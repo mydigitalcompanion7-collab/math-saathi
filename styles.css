@@ -60,3 +60,5 @@
 /* Keep the page still while the formula drawer is open; scroll inside the drawer. */
 body:has(.formula-side-drawer[open]){overflow:hidden}
 .formula-side-drawer[open]>.formula-library{overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y}
+
+.rating-field{margin:0;padding:0;border:0}.rating-field legend{margin-bottom:7px;color:#626a60;font-size:11px;font-weight:650}.star-rating{display:flex;flex-direction:row-reverse;justify-content:flex-end;align-items:center;gap:3px;width:max-content}.star-rating input{position:absolute;width:1px;height:1px;opacity:0;clip-path:inset(50%)}.star-rating label{padding:1px 3px;color:#c5c9bf;font-size:30px;line-height:1;cursor:pointer;transition:color .15s,transform .15s}.star-rating label:hover{transform:scale(1.12)}.star-rating input:checked+label,.star-rating input:checked+label~input+label{color:#e8ad32}.star-rating input:focus-visible+label{outline:2px solid var(--green);outline-offset:3px;border-radius:5px}

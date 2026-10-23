@@ -2,7 +2,7 @@
 <!-- Built by Ayush. -->
 <html lang="hi">
 <head>
-    <meta name="google-site-verification" content="ajJFyp2HOsRZU6djjffT-82gp8Sh9-EPeIeRGYCR9KM" />
+  <meta name="google-site-verification" content="ajJFyp2HOsRZU6djjffT-82gp8Sh9-EPeIeRGYCR9KM">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f6f5f0">
@@ -10,13 +10,16 @@
   <title>Math Saathi — Maths, made clear</title>
   <link rel="stylesheet" href="styles.css">
   <script src="api-config.js" defer></script>
+  <script src="formula-data.js" defer></script>
+  <script src="formula-extra-data.js" defer></script>
+  <script src="features.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
   <main class="shell">
     <header class="topbar">
       <a class="brand" href="#" aria-label="Math Saathi home"><span class="brand-mark">∑</span><span>Math Saathi</span></a>
-      <div class="language-toggle" role="group" aria-label="Choose language">
+<div class="language-toggle" role="group" aria-label="Choose language">
         <button class="language-option" type="button" data-language="hi" aria-pressed="true">हिन्दी</button>
         <button class="language-option" type="button" data-language="en" aria-pressed="false">English</button>
       </div>
@@ -39,6 +42,26 @@
       <a class="solutions-link" href="solutions.html" data-i18n="solutionsLink">Class 10 ke chapter solutions dekho →</a>
       <a class="solutions-link syllabus-link" href="syllabus.html?board=cbse" data-i18n="syllabusLink">Class 10 ke official syllabus dekho →</a>
     </section>
+
+    <details id="formula-drawer" class="feature-disclosure formula-side-drawer">
+      <summary><span data-feature-copy="navFormulas">सूत्र लाइब्रेरी</span><span id="formula-summary-count" class="disclosure-count">30 topics · 197 formulas</span></summary>
+    <section id="formulas" class="formula-library" aria-labelledby="formula-heading">
+      <div class="feature-heading">
+        <p class="step-label" data-feature-copy="formulaEyebrow">MATHS REFERENCE · CLASS 6–12</p>
+        <h2 id="formula-heading" data-feature-copy="formulaTitle">Topic ke hisaab se formula khojo</h2>
+        <p data-feature-copy="formulaIntro">Topic ya formula likho—dono languages mein search kar sakte ho. Topic kholkar uske zaroori formulas dekho.</p>
+      </div>
+      <div class="formula-controls">
+        <label class="formula-search-wrap"><span data-feature-copy="searchLabel">Topic ya formula search karo</span>
+          <input id="formula-search" type="search" autocomplete="off" data-feature-placeholder="searchPlaceholder" placeholder="Jaise: trigonometry, area, quadratic, interest…">
+        </label>
+
+      </div>
+      <p id="formula-result-count" class="formula-result-count" aria-live="polite"></p>
+      <div id="formula-topics" class="formula-topics"></div>
+    </section>
+
+    </details>
 
     <section class="workspace" aria-label="Math question workspace">
       <div class="question-card">
@@ -110,10 +133,26 @@
       </div>
     </section>
 
+
+
     <footer><span>Math Saathi <span data-i18n="footer">· saath seekhenge</span></span><span data-i18n="footerRight">ABHI SHURUAAT HAI</span></footer>
+    <details id="feedback-drawer" class="feature-disclosure">
+      <summary><span data-feature-copy="navFeedback">सुझाव दें</span></summary>
+      <section id="feedback" class="feedback-section" aria-labelledby="feedback-heading">
+        <div class="feature-heading"><p class="step-label" data-feature-copy="feedbackEyebrow">MATH SAATHI को बेहतर बनाएँ</p><h2 id="feedback-heading" data-feature-copy="feedbackTitle">Feedback भेजें</h2><p data-feature-copy="feedbackIntro">अपना सुझाव या मिली हुई गलती लिखें। GitHub पर draft खुलेगा; भेजने से पहले आप उसे देख और submit कर सकते हैं।</p></div>
+        <form id="feedback-form" class="feedback-form">
+          <label><span data-feature-copy="feedbackType">Feedback का प्रकार</span><select id="feedback-category" name="category"><option value="suggestion" data-copy="feedbackSuggestion">सुझाव</option><option value="bug" data-copy="feedbackBug">गलती / समस्या</option><option value="other" data-copy="feedbackOther">कुछ और</option></select></label>
+          <label><span data-feature-copy="feedbackMessage">आपका संदेश</span><textarea name="message" rows="4" required maxlength="2000" data-feature-placeholder="feedbackPlaceholder" placeholder="क्या बेहतर किया जा सकता है?"></textarea></label>
+          <button type="submit" class="feedback-submit" data-feature-copy="feedbackSend">Feedback draft खोलें</button><p id="feedback-status" class="feedback-status" role="status"></p><p class="feedback-note" data-feature-copy="feedbackNote">यह form अपने-आप कुछ publish नहीं करता। GitHub account से आप खुद final submit करेंगे।</p>
+        </form>
+      </section>
+    </details>
   </main>
 </body>
 </html>
+
+
+
 
 
 

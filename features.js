@@ -18,7 +18,7 @@
   count.textContent=text[lang].resultStart+' '+cards.length;
   const total=(window.MATH_SAATHI_FORMULAS||[]).reduce((sum,topic)=>sum+topic.f.length,0);
   document.querySelector('#formula-summary-count').textContent=total+' '+text[lang].summaryFormulas+' · '+(window.MATH_SAATHI_FORMULAS||[]).length+' '+text[lang].summaryTopics;
-  list.innerHTML=cards.length?cards.map(({topic,formulas,opened})=>'<details class="formula-topic"'+(opened?' open':'')+'><summary><span class="formula-topic-title">'+esc(topic[lang])+'</span><span class="formula-topic-meta">'+formulas.length+' '+esc(text[lang].formulaCount)+'</span></summary><ul class="formula-list">'+formulas.map(f=>'<li><code>'+esc(f[0])+'</code><p>'+esc(lang==='hi'?f[1]:f[2])+'</p></li>').join('')+'</ul></details>').join(''):'<p class="formula-empty">'+esc(text[lang].noResults)+'</p>';
+  list.innerHTML=cards.length?cards.map(({topic,formulas,opened})=>'<details class="formula-topic"'+(opened?' open':'')+'><summary><span class="formula-topic-title">'+esc(topic[lang==='en'?'e':'h'])+'</span><span class="formula-topic-meta">'+formulas.length+' '+esc(text[lang].formulaCount)+'</span></summary><ul class="formula-list">'+formulas.map(f=>'<li><code>'+esc(f[0])+'</code><p>'+esc(lang==='hi'?f[1]:f[2])+'</p></li>').join('')+'</ul></details>').join(''):'<p class="formula-empty">'+esc(text[lang].noResults)+'</p>';
  }
  window.setFeatureLanguage=language=>{
   lang=language==='en'?'en':'hi';

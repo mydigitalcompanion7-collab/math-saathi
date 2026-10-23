@@ -56,3 +56,7 @@
 .formula-side-drawer[open]>summary{flex:none;order:2;min-height:52px;border:0;border-radius:0;border-top:1px solid #e9ece5;background:#f8faf6;color:#315b43;box-shadow:none}
 .formula-side-drawer[open]>.formula-library{flex:1;min-height:0;overflow:auto;margin:0;padding:22px;border:0;border-radius:0;box-shadow:none}
 @media(max-width:520px){.formula-side-drawer{right:13px;bottom:13px}.formula-side-drawer[open]{width:calc(100vw - 26px);height:min(82vh,760px)}.formula-side-drawer[open]>.formula-library{padding:17px}}
+
+/* Keep the page still while the formula drawer is open; scroll inside the drawer. */
+body:has(.formula-side-drawer[open]){overflow:hidden}
+.formula-side-drawer[open]>.formula-library{overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y}

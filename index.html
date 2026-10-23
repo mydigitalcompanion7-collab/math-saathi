@@ -1,0 +1,118 @@
+<!doctype html>
+<!-- Built by Ayush. -->
+<html lang="hi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f5f0">
+  <meta name="description" content="Math Saathi — maths questions ko samajhne aur solve karne ka saathi.">
+  <title>Math Saathi — Maths, made clear</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="api-config.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Math Saathi home"><span class="brand-mark">∑</span><span>Math Saathi</span></a>
+      <div class="language-toggle" role="group" aria-label="Choose language">
+        <button class="language-option" type="button" data-language="hi" aria-pressed="true">हिन्दी</button>
+        <button class="language-option" type="button" data-language="en" aria-pressed="false">English</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <p class="eyebrow" data-i18n="eyebrow">TUMHARA MATHS SAATHI</p>
+      <h1 data-i18n-html="title">Maths ko samjho,<br><em>step by step.</em></h1>
+      <p class="intro" data-i18n="intro">Sawaal likho ya uski tasveer bhejo. Hum milkar hal tak pahunchenge.</p>
+    </section>
+
+    <section class="course-controls" aria-labelledby="course-heading">
+      <div class="course-heading"><p class="step-label" data-course-i18n="eyebrow">APNA COURSE CHUNO</p><h2 id="course-heading" data-course-i18n="title">Class, board aur syllabus</h2></div>
+      <div class="course-selectors">
+        <label><span data-course-i18n="classLabel">Class</span><select id="class-select" aria-label="Class"></select></label>
+        <label><span data-course-i18n="boardLabel">Board</span><select id="board-select" aria-label="Board"></select></label>
+        <label><span data-course-i18n="syllabusLabel">Syllabus</span><select id="syllabus-select" aria-label="Syllabus"></select></label>
+      </div>
+      <p id="course-message" class="course-message" role="status"></p>
+      <a class="solutions-link" href="solutions.html" data-i18n="solutionsLink">Class 10 ke chapter solutions dekho →</a>
+      <a class="solutions-link syllabus-link" href="syllabus.html?board=cbse" data-i18n="syllabusLink">Class 10 ke official syllabus dekho →</a>
+    </section>
+
+    <section class="workspace" aria-label="Math question workspace">
+      <div class="question-card">
+        <div class="card-heading">
+          <div><span class="step-label" data-i18n="questionLabel">PEHLA KADAM</span><h2 data-i18n="questionTitle">Apna maths sawaal bhejo</h2></div>
+          <span class="chapter-badge" data-i18n="chapter">Class 6–12</span>
+        </div>
+
+        <label class="question-input-label" for="question" data-i18n="typeLabel">Sawaal yahan type karo</label>
+        <textarea id="question" rows="3" data-i18n-placeholder="placeholder" placeholder="Jaise: 2x + 5 = 15"></textarea>
+
+        <div class="or-divider"><span data-i18n="or">YA</span></div>
+        <label class="upload-zone" for="question-image">
+          <span class="upload-icon">↥</span>
+          <span class="upload-copy"><strong data-i18n="uploadTitle">Tasveer scan ya upload karo</strong><small data-i18n="uploadHint">Sawaal ki photo chuno · JPG, PNG</small></span>
+          <span class="upload-arrow">→</span>
+          <input id="question-image" type="file" accept="image/*" capture="environment" hidden>
+        </label>
+        <div id="image-preview" class="image-preview" hidden></div>
+
+        <button id="solve-button" class="solve-button" type="button"><span data-i18n="solve">Sawaal bhejo</span><span aria-hidden="true">→</span></button>
+        <p class="privacy-note"><span>●</span> <span data-i18n="privacy">Tumhara sawaal tumhare paas. Koi API nahi.</span></p>
+      </div>
+
+      <div class="result-card" aria-live="polite">
+        <div class="result-top"><div><span class="step-label" data-i18n="solutionLabel">DOOSRA KADAM</span><h2 data-i18n="solutionTitle">Tumhara solution</h2></div><span class="sparkle">✳</span></div>
+        <div id="solution-content" class="solution-content">
+          <div class="empty-illustration"><span>?</span><i>∑</i><b>→</b></div>
+          <p class="empty-title" data-i18n="emptyTitle">Solution yahan dikhega</p>
+          <p class="empty-copy" data-i18n="emptyCopy">Pehle apna sawaal bhejo. Phir hum ise aasaan steps mein samjhenge.</p>
+        </div>
+        <div class="result-footer"><span data-i18n="learning">SIRF JAWAB NAHI, SAMAJH BHI</span><span>✦</span></div>
+      </div>
+    </section>
+
+    <section class="calculator-section" aria-labelledby="calculator-heading">
+      <div class="calculator-intro">
+        <p class="step-label" data-i18n="calcEyebrow">PEHLE MATHS KI NEENV</p>
+        <h2 id="calculator-heading" data-i18n="calcTitle">Chalo, calculator se shuru karein.</h2>
+        <p data-i18n="calcIntro">Basic hisaab yahin karo—bina API, seedha browser mein.</p>
+      </div>
+      <div class="calculator-card">
+        <label class="calc-display-label" for="calc-display" data-i18n="calcDisplayLabel">TUMHARA HISAAB</label>
+        <input id="calc-display" class="calc-display" type="text" inputmode="decimal" placeholder="0" autocomplete="off" aria-label="Calculator display">
+        <p id="calc-message" class="calc-message" aria-live="polite"></p>
+        <div class="calc-keys" role="group" aria-label="Calculator keys">
+          <button type="button" class="key key-utility" data-calc="clear" data-i18n="calcClear">AC</button>
+          <button type="button" class="key key-utility" data-calc="backspace" aria-label="Backspace">⌫</button>
+          <button type="button" class="key key-utility" data-value="%">%</button>
+          <button type="button" class="key key-operator" data-value="÷">÷</button>
+          <button type="button" class="key" data-value="7">7</button>
+          <button type="button" class="key" data-value="8">8</button>
+          <button type="button" class="key" data-value="9">9</button>
+          <button type="button" class="key key-operator" data-value="×">×</button>
+          <button type="button" class="key" data-value="4">4</button>
+          <button type="button" class="key" data-value="5">5</button>
+          <button type="button" class="key" data-value="6">6</button>
+          <button type="button" class="key key-operator" data-value="−">−</button>
+          <button type="button" class="key" data-value="1">1</button>
+          <button type="button" class="key" data-value="2">2</button>
+          <button type="button" class="key" data-value="3">3</button>
+          <button type="button" class="key key-operator" data-value="+">+</button>
+          <button type="button" class="key key-utility" data-value="(">(</button>
+          <button type="button" class="key" data-value="0">0</button>
+          <button type="button" class="key" data-value=".">.</button>
+          <button type="button" class="key key-equals" data-calc="equals">=</button>
+        </div>
+        <p class="calc-footnote" data-i18n="calcFootnote">Keyboard se bhi likh sakte ho · Enter dabao to jawab milega</p>
+      </div>
+    </section>
+
+    <footer><span>Math Saathi <span data-i18n="footer">· saath seekhenge</span></span><span data-i18n="footerRight">ABHI SHURUAAT HAI</span></footer>
+  </main>
+</body>
+</html>
+
+
+

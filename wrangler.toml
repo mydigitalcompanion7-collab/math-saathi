@@ -1,0 +1,9 @@
+name = "math-saathi-api"
+main = "worker.js"
+compatibility_date = "2026-10-23"
+
+[vars]
+# Set this to the exact HTTPS origin of the published Math Saathi website.
+ALLOWED_ORIGIN = "https://YOUR-SITE.github.io"
+# Choose a model enabled for your OpenAI API project.
+OPENAI_MODEL = "gpt-6-astra"

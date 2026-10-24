@@ -22,7 +22,7 @@
 
 .worked-chapter{margin-top:24px;padding-top:16px;border-top:1px solid #e8e9e1}.worked-chapter h2{font-size:17px;margin:0 0 12px}.worked-body{padding:10px 15px 15px;color:#525a50;font-size:12px;line-height:1.75}.worked-body li{margin:4px 0}
 .solver-result{width:100%;max-width:100%;text-align:left;align-self:start;padding:8px 2px}.solver-question{margin:0 0 12px;padding:10px 12px;border-radius:9px;background:#f4f6f1;color:#263a2d;font:600 15px Consolas,'Courier New',monospace;overflow-wrap:anywhere}.solver-result ol{margin:0;padding-left:22px;color:#667064;font-size:12px;line-height:1.75}.solver-result li{padding:3px 0 3px 4px}.solver-answer{margin:14px 0 0;padding:12px;border:1px solid #dfe8dc;border-radius:9px;background:#f4f8f1;color:var(--green);font-size:14px;overflow-wrap:anywhere}
-.ai-answer{color:#596257;font-size:12px;line-height:1.8;overflow-wrap:anywhere}
+.solution-answer{color:#596257;font-size:12px;line-height:1.8;overflow-wrap:anywhere}
 
 .syllabus-link[hidden]{display:none}
 

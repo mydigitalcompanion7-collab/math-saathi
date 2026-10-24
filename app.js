@@ -50,7 +50,10 @@ const courseCopy = {
   }
 };
 
-let language = 'hi';
+let language = (() => {
+  try { return localStorage.getItem('math-saathi-language') === 'en' ? 'en' : 'hi'; }
+  catch { return 'hi'; }
+})();
 const languageOptions = document.querySelectorAll('.language-option');
 const question = document.querySelector('#question');
 const fileInput = document.querySelector('#question-image');
@@ -149,6 +152,7 @@ function setLanguage(next) {
   language = next;
   try { localStorage.setItem('math-saathi-language', next); } catch { /* Local file mode may block browser storage. */ }
   document.documentElement.lang = next;
+  window.setFeatureLanguage?.(next);
   document.querySelectorAll('[data-i18n]').forEach((element) => {
     const key = element.dataset.i18n;
     element.textContent = translations[next][key];
@@ -724,4 +728,5 @@ solveButton.addEventListener('click', async () => {
 
 initializeCourseControls();
 setLanguage(language);
+
 

@@ -9,8 +9,9 @@
   <meta name="description" content="Math Saathi — maths questions ko samajhne aur solve karne ka saathi.">
   <link rel="canonical" href="https://mydigitalcompanion7-collab.github.io/math-saathi/">
   <title>Math Saathi — Maths, made clear</title>
-  <link rel="stylesheet" href="styles.css?v=calc-no-keyboard-1">
+  <link rel="stylesheet" href="styles.css?v=study-account-1">
   <script src="api-config.js" defer></script>
+  <script src="auth-config.js" defer></script>
   <script src="formula-data.js" defer></script>
   <script src="formula-extra-data.js" defer></script>
   <script src="features.js?v=calc-no-keyboard-1" defer></script>
@@ -136,6 +137,17 @@
 
 
 
+    <details class="feature-disclosure study-disclosure" id="study-account">
+      <summary><span data-study-copy="summary">अपना पढ़ाई का समय देखें</span></summary>
+      <section class="study-panel" aria-labelledby="study-title">
+        <div class="feature-heading"><p class="step-label" data-study-copy="eyebrow">MATH SAATHI ACCOUNT</p><h2 id="study-title" data-study-copy="title">पढ़ाई का समय आपके लिए</h2><p data-study-copy="intro">Sign in वैकल्पिक है। अनुमति देने पर सक्रिय पढ़ाई का समय गिना जाएगा।</p></div>
+        <div class="study-consent-wrap"><label class="study-consent"><input id="study-consent" type="checkbox"><span data-study-copy="consent">मैं समझता/समझती हूँ: Math Saathi मेरा Google खाता-ID और पढ़ाई के समय का रिकॉर्ड रखेगा। समय केवल इस ब्राउज़र में सक्रिय रहने पर गिना जाएगा। मेरा नाम और ईमेल owner को नहीं दिखेगा। मैं sign out कर सकता/सकती हूँ या अपना समय रिकॉर्ड मिटा सकता/सकती हूँ।</span></label></div>
+        <div class="study-actions"><button id="google-signin-placeholder" class="google-signin-placeholder" type="button" disabled data-study-copy="signinPending">Google sign-in setup pending</button><div id="google-signin" class="google-signin" aria-label="Google sign in" hidden></div><button id="study-signout" class="study-secondary" type="button" hidden data-study-copy="signout">Sign out</button></div>
+        <p id="study-status" class="study-status" role="status" aria-live="polite">Google sign-in abhi setup nahi hua hai.</p>
+        <div id="study-stats" class="study-stats" hidden><div><span data-study-copy="today">आज</span><strong id="study-today">0 min</strong></div><div><span data-study-copy="total">कुल पढ़ाई</span><strong id="study-total">0 min</strong></div><p data-study-copy="statsNote">समय तभी जुड़ता है जब पेज खुला हो और तुम सक्रिय हो। रिकॉर्ड मिटाने के लिए नीचे वाला बटन दबाएँ।</p><button id="study-delete" class="study-secondary study-delete" type="button" data-study-copy="delete">मेरा रिकॉर्ड मिटाएँ</button></div>
+        <section id="study-admin" class="study-admin" hidden aria-labelledby="study-admin-title"><h3 id="study-admin-title" data-study-copy="adminTitle">सभी users का anonymous total</h3><div class="study-admin-stats"><div><span data-study-copy="users">कुल users</span><strong id="study-users">0</strong></div><div><span data-study-copy="alltime">कुल study time</span><strong id="study-alltime">0 min</strong></div></div><p data-study-copy="adminNote">यह केवल aggregated आंकड़े हैं; किसी का नाम या ईमेल नहीं दिखता।</p></section>
+      </section>
+    </details>
     <footer><span>Math Saathi <span data-i18n="footer">· saath seekhenge</span></span><span data-i18n="footerRight">ABHI SHURUAAT HAI</span></footer>
     <details id="feedback-drawer" class="feature-disclosure">
       <summary><span data-feature-copy="navFeedback">सुझाव दें</span></summary>
@@ -155,6 +167,7 @@
       </section>
     </details>
   </main>
+  <script src="study-time.js?v=1" defer></script>
 </body>
 </html>
 

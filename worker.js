@@ -4,6 +4,61 @@ const MAX_QUESTION_CHARS = 8_000;
 const WINDOW_MS = 60_000;
 const MAX_REQUESTS_PER_WINDOW = 12;
 
+async function googleClaims(token, clientId) {
+  const parts = token.split('.');
+  if (parts.length !== 3) throw new Error('invalid token');
+  const decode = value => JSON.parse(atob(value.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - value.length % 4) % 4)));
+  const header = decode(parts[0]);
+  const claims = decode(parts[1]);
+  const now = Math.floor(Date.now() / 1000);
+  if (header.alg !== 'RS256' || claims.iss !== 'https://accounts.google.com' && claims.iss !== 'accounts.google.com' || claims.aud !== clientId || !claims.sub || claims.exp < now || claims.iat > now + 60 || claims.email_verified !== true) throw new Error('invalid claims');
+  const keysResponse = await fetch('https://www.googleapis.com/oauth2/v3/certs', {cf:{cacheTtl:3600,cacheEverything:true}});
+  if (!keysResponse.ok) throw new Error('key lookup failed');
+  const keys = await keysResponse.json();
+  const jwk = keys.keys.find(key => key.kid === header.kid && key.alg === 'RS256');
+  if (!jwk) throw new Error('unknown signing key');
+  const key = await crypto.subtle.importKey('jwk', jwk, {name:'RSASSA-PKCS1-v1_5',hash:'SHA-256'}, false, ['verify']);
+  const input = new TextEncoder().encode(`${parts[0]}.${parts[1]}`);
+  const sig = Uint8Array.from(atob(parts[2].replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - parts[2].length % 4) % 4)), c=>c.charCodeAt(0));
+  if (!await crypto.subtle.verify('RSASSA-PKCS1-v1_5', key, sig, input)) throw new Error('bad signature');
+  return claims;
+}
+
+async function authenticate(request, env) {
+  const match = (request.headers.get('Authorization') || '').match(/^Bearer (.+)$/);
+  if (!match || !env.GOOGLE_CLIENT_ID) return null;
+  try { return await googleClaims(match[1], env.GOOGLE_CLIENT_ID); } catch { return null; }
+}
+
+async function usageRoute(request, env, origin, url) {
+  if (!env.DB) return json({error:'Usage storage is not configured.'},503,origin);
+  const user = await authenticate(request, env);
+  if (!user) return json({error:'Sign in again to continue.'},401,origin);
+  const day = new Date(Date.now()+330*60*1000).toISOString().slice(0,10);
+  const isAdmin = String(user.email || '').toLowerCase() === String(env.ADMIN_EMAIL || '').toLowerCase();
+  if (url.pathname === '/usage/heartbeat' && request.method === 'POST') {
+    let body; try { body = await request.json(); } catch { return json({error:'Invalid request.'},400,origin); }
+    const seconds = Number(body.seconds);
+    if (!Number.isInteger(seconds) || seconds < 1 || seconds > 120) return json({error:'Invalid time interval.'},400,origin);
+    await env.DB.prepare('INSERT INTO usage_daily(user_sub,day,seconds,updated_at) VALUES(?,?,?,?) ON CONFLICT(user_sub,day) DO UPDATE SET seconds=MIN(86400,usage_daily.seconds+excluded.seconds),updated_at=excluded.updated_at').bind(user.sub,day,seconds,new Date().toISOString()).run();
+    return json({ok:true},200,origin);
+  }
+  if (url.pathname === '/usage/me' && request.method === 'GET') {
+    const result = await env.DB.prepare('SELECT COALESCE(SUM(seconds),0) AS totalSeconds, COALESCE(SUM(CASE WHEN day=? THEN seconds ELSE 0 END),0) AS todaySeconds FROM usage_daily WHERE user_sub=?').bind(day,user.sub).first();
+    return json({todaySeconds:result.todaySeconds,totalSeconds:result.totalSeconds,isAdmin},200,origin);
+  }
+  if (url.pathname === '/usage/admin' && request.method === 'GET') {
+    if (!isAdmin) return json({error:'Not allowed.'},403,origin);
+    const result = await env.DB.prepare('SELECT COUNT(DISTINCT user_sub) AS users, COALESCE(SUM(seconds),0) AS totalSeconds FROM usage_daily').first();
+    return json({users:result.users,totalSeconds:result.totalSeconds},200,origin);
+  }
+  if (url.pathname === '/usage/delete' && request.method === 'POST') {
+    await env.DB.prepare('DELETE FROM usage_daily WHERE user_sub=?').bind(user.sub).run();
+    return json({ok:true},200,origin);
+  }
+  return null;
+}
+
 function json(body, status, origin) {
   return new Response(JSON.stringify(body), {
     status,
@@ -11,6 +66,8 @@ function json(body, status, origin) {
       'Content-Type': 'application/json; charset=utf-8',
       'Cache-Control': 'no-store',
       'Access-Control-Allow-Origin': origin,
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Vary': 'Origin'
     }
   });
@@ -43,13 +100,19 @@ export default {
     if (request.method === 'OPTIONS') {
       return new Response(null, {status: 204, headers: {
         'Access-Control-Allow-Origin': allowedOrigin,
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
         'Access-Control-Max-Age': '86400',
         'Vary': 'Origin'
       }});
     }
-    if (request.method !== 'POST') return json({error: 'Method not allowed'}, 405, allowedOrigin);
+    const url = new URL(request.url);
+    if (url.pathname.startsWith('/usage/')) {
+      if (rateLimited(request)) return json({error:'Please wait before trying again.'},429,allowedOrigin);
+      const result = await usageRoute(request, env, allowedOrigin, url);
+      if (result) return result;
+    }
+    if (request.method !== 'POST' || url.pathname !== '/') return json({error: 'Method not allowed'}, 405, allowedOrigin);
     if (rateLimited(request)) return json({error: 'Please wait before trying again.'}, 429, allowedOrigin);
     const length = Number(request.headers.get('Content-Length') || 0);
     if (length > MAX_BODY_BYTES) return json({error: 'Request is too large.'}, 413, allowedOrigin);

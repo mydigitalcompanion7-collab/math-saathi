@@ -9,13 +9,13 @@
   <meta name="description" content="Math Saathi — maths questions ko samajhne aur solve karne ka saathi.">
   <link rel="canonical" href="https://mydigitalcompanion7-collab.github.io/math-saathi/">
   <title>Math Saathi — Maths, made clear</title>
-  <link rel="stylesheet" href="styles.css?v=study-account-1">
+  <link rel="stylesheet" href="styles.css?v=cloud-setup-paused-1">
   <script src="api-config.js" defer></script>
   <script src="auth-config.js" defer></script>
   <script src="formula-data.js" defer></script>
   <script src="formula-extra-data.js" defer></script>
   <script src="features.js?v=calc-no-keyboard-1" defer></script>
-  <script src="app.js" defer></script>
+  <script src="app.js?v=cloud-setup-paused-1" defer></script>
 </head>
 <body>
   <main class="shell">
@@ -137,7 +137,19 @@
 
 
 
-     
+    <section class="study-timer" aria-labelledby="study-timer-heading" data-study-timer>
+      <div>
+        <p class="step-label" data-study-copy="eyebrow">APNI PADHAI KA SAMAY</p>
+        <h2 id="study-timer-heading" data-study-copy="title">Aaj maths ko kitna waqt diya?</h2>
+        <p class="study-timer-note" data-study-copy="note">Yeh samay sirf isi device ke browser mein save hota hai.</p>
+      </div>
+      <div class="study-timer-readout" role="timer" aria-live="off"><span data-study-copy="today">Aaj</span><strong id="study-today-time">00:00:00</strong></div>
+      <div class="study-timer-actions">
+        <button id="study-start" type="button" class="study-start" data-study-copy="start">Padhai shuru</button>
+        <button id="study-reset" type="button" class="study-reset" data-study-copy="reset">Aaj ka samay reset</button>
+        <span id="study-timer-status" class="study-timer-status" role="status" data-study-copy="paused">Timer ruka hua hai</span>
+      </div>
+    </section>
     <footer><span>Math Saathi <span data-i18n="footer">· saath seekhenge</span></span><span data-i18n="footerRight">ABHI SHURUAAT HAI</span></footer>
     <details id="feedback-drawer" class="feature-disclosure">
       <summary><span data-feature-copy="navFeedback">सुझाव दें</span></summary>
@@ -157,7 +169,7 @@
       </section>
     </details>
   </main>
-  
+  <script src="study-timer-local.js?v=1" defer></script>
 </body>
 </html>
 

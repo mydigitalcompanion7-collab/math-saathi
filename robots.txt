@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mydigitalcompanion7-collab.github.io/math-saathi/sitemap.xml
